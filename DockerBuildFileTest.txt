@@ -1,6 +1,8 @@
 FROM ubuntu:14.04
 MAINTAINER Thierry Neel <Thierry.Neel@verifone.com>
-# Install Curl
+RUN apt-get update
+# Curl
 RUN apt-get install -y curl
+# logstash
 RUN curl -O https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz
 RUN tar zxvf logstash-1.4.2.tar.gz
