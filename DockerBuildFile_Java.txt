@@ -1,0 +1,10 @@
+FROM ubuntu:14.04
+MAINTAINER Thierry Neel <Thierry.Neel@verifone.com>
+RUN apt-get update
+# Java
+RUN apt-get install default-jre -y
+# OR RUN apt-get install default-jdk
+# Curl
+RUN apt-get install -y curl
+# Verification
+RUN java -version
