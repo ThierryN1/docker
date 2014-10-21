@@ -20,6 +20,7 @@ STARTING CONTAINER FROM AN IMAGE
 sh /f/_Workspace/Boot2Docker/start.sh
 docker pull thierryn1/private:logging
 docker run -t -i -p 9200:9200 -p 9300:9300 thierryn1/private:logging /bin/bash
+
 TEST 1
 	logstash-1.4.2/bin/logstash -e 'input { stdin { } } output { stdout {} }'
 TEST 2
