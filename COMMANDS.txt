@@ -1,0 +1,77 @@
+*************************
+CLEAN UP LOCAL CACHE
+************************
+# Delete all containers
+docker rm -f $(docker ps -a -q)
+# Delete all images
+docker rmi -f $(docker images -q)
+
+*************************
+BUILD AND SAVE IMAGE
+************************
+sh /f/_Workspace/Boot2Docker/start.sh
+docker build -t thierryn1/private:logging https://raw.githubusercontent.com/ThierryN1/docker/master/DockerBuildFile_Logging.txt
+
+docker push thierryn1/private:logging
+
+**********************************
+STARTING CONTAINER FROM AN IMAGE
+*********************************
+sh /f/_Workspace/Boot2Docker/start.sh
+docker pull thierryn1/private:logging
+docker run -t -i thierryn1/private:logging /bin/bash
+TEST 1
+	logstash-1.4.2/bin/logstash -e 'input { stdin { } } output { stdout {} }'
+TEST 2
+	elasticsearch-1.1.1/bin/elasticsearch & /logstash-1.4.2/bin/logstash -e 'input { stdin { } } output { elasticsearch { host => localhost } }'
+CHECK
+	curl 'http://localhost:9200/_search?pretty'
+
+*************************
+ANOTHER IMAGE BUILD
+*************************
+sh /f/_Workspace/Boot2Docker/start.sh
+docker build -t thierryn1/private:java https://raw.githubusercontent.com/ThierryN1/docker/master/DockerBuildFile_Java.txt
+docker push thierryn1/private:java
+
+********************************* OLD STUFF **************************************************************
+
+sh /f/_Workspace/Boot2Docker/start.s
+docker pull ubuntu
+docker run -t -i ubuntu /bin/bash
+
+sudo apt-get update
+sudo apt-get install default-jre
+OR sudo apt-get install default-jdk
+java -version
+
+NOT SURE IT IS NEEDED: sudo apt-get install libcurl4-openssl-dev
+TRY THIS FIRST: sudo apt-get install curl
+
+DOC http://logstash.net/docs/1.4.2/tutorials/getting-started-with-logstash
+
+LOGSTASH ***************************************************************************
+curl -O https://download.elasticsearch.org/logstash/logstash/logstash-1.4.2.tar.gz
+tar zxvf logstash-1.4.2.tar.gz
+cd logstash-1.4.2
+
+TEST 1
+	bin/logstash -e 'input { stdin { } } output { stdout {} }'
+	CTRL-C
+TEST 2	
+	bin/logstash -e 'input { stdin { } } output { stdout { codec => rubydebug } }'
+
+ELASTICSEARCH ******************************************************************************
+cd\
+curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.tar.gz
+tar zxvf elasticsearch-1.1.1.tar.gz
+cd elasticsearch-1.1.1/
+
+TEST 1
+	elasticsearch-1.1.1/bin/elasticsearch & /logstash-1.4.1/bin/logstash -e 'input { stdin { } } output { elasticsearch { host => localhost } }'
+CHECK
+	curl 'http://localhost:9200/_search?pretty'
+
+
+*******************************
+https://docs.docker.com/userguide/dockerimages/
