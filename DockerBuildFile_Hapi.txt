@@ -1,0 +1,19 @@
+FROM ubuntu:14.04
+MAINTAINER Thierry Neel <Thierry.Neel@verifone.com>
+RUN apt-get update
+# Node + npm + git
+RUN apt-get install nodejs
+RUN apt-get install npm
+RUN apt-get install git
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+# Hapi
+RUN npm install hapi
+# myHapiProject
+RUN git clone https://github.com/ThierryN1/myHapiProject.git
+RUN npm install myHapiProject
+# Expose ports.
+# - 3000: HTTP
+EXPOSE 3000
+# Start
+RUN cd myHapiProject
+RUN node startServer.js
