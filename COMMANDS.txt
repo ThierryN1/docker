@@ -35,6 +35,51 @@ sh /f/_Workspace/Boot2Docker/start.sh
 docker build -t thierryn1/private:java https://raw.githubusercontent.com/ThierryN1/docker/master/DockerBuildFile_Java.txt
 docker push thierryn1/private:java
 
+****************************************************************************************
+NODE.JS
+*************Image build with Hapi*******************
+sh /f/_Workspace/Boot2Docker/start.sh
+docker build -t thierryn1/private:hapi https://raw.githubusercontent.com/ThierryN1/docker/master/DockerBuildFile_Hapi.txt
+docker push thierryn1/private:hapi
+
+*************starting hapi container ***************
+sh /f/_Workspace/Boot2Docker/start.sh //READ THE IP ADDRESS
+docker pull thierryn1/private:hapi
+docker run -t -i -p 3000:3000 thierryn1/private:hapi node myHapiProject/startServer.js
+
+TO TEST http://192.168.59.103:3000/
+
+***********node old ********************************
+sh /f/_Workspace/Boot2Docker/start.sh
+docker pull ubuntu
+docker run -t -i ubuntu /bin/bash
+sudo apt-get update
+sudo apt-get install nodejs
+sudo apt-get install npm
+sudo apt-get install git
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+
+node -v
+npm -v
+
+npm install hapi
+
+git clone https://github.com/ThierryN1/myHapiProject.git
+npm install myHapiProject
+cd myHapiProject
+
+node startServer.js
+
+
+
+npm install git+https://git@github.com:ThierryN1/myHapiProject.git
+npm install git:git@github.com:ThierryN1/myHapiProject.git
+git@github.com:ThierryN1/myHapiProject.git
+
+npm install https://github.com/ThierryN1/myHapiProject.git
+
+ip route get 8.8.8.8 | awk '{print $NF; exit}'
+
 ********************************* OLD STUFF **************************************************************
 
 sh /f/_Workspace/Boot2Docker/start.s
