@@ -16,5 +16,5 @@ RUN npm install myHapiProject
 EXPOSE 3000
 # Start
 RUN ls
-RUN cd node_modules/myHapiProject
-RUN node startServer.js
+RUN cd node_modules
+RUN node myHapiProject/startServer.js
