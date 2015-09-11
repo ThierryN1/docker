@@ -14,8 +14,8 @@ RUN npm install hapi
 RUN git clone https://github.com/ThierryN1/filterService.git
 RUN npm install filterService
 # Expose ports.
-# - 3000: HTTP
-EXPOSE 3000
+# - 80: HTTP
+EXPOSE 80
 # Start
 RUN cd node_modules
 #RUN node filterService/startServer.js
