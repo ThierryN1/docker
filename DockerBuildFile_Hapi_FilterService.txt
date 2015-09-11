@@ -1,0 +1,21 @@
+FROM ubuntu:14.04
+MAINTAINER Thierry Neel <Thierry.Neel@verifone.com>
+RUN apt-get update
+# Node + npm + git
+RUN apt-get -y install nodejs
+RUN apt-get -y install npm
+RUN apt-get -y install git
+RUN sudo ln -s /usr/bin/nodejs /usr/bin/node
+#curl
+RUN apt-get -y install curl
+# Hapi
+RUN npm install hapi
+# filterService
+RUN git clone https://github.com/ThierryN1/filterService.git
+RUN npm install filterService
+# Expose ports.
+# - 3000: HTTP
+EXPOSE 3000
+# Start
+RUN cd node_modules
+#RUN node filterService/startServer.js
