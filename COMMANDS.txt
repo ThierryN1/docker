@@ -43,12 +43,50 @@ docker build -t thierryn1/private:hapi https://raw.githubusercontent.com/Thierry
 docker push thierryn1/private:hapi
 
 *************starting hapi container ***************
-sh /f/_Workspace/Boot2Docker/start.sh //READ THE IP ADDRESS
+sh /f/_Workspace/Boot2Docker/start.sh //READ THE IP ADDRESS OF THE CONTAINER
 docker pull thierryn1/private:hapi
 docker run -t -i -p 3000:3000 thierryn1/private:hapi node myHapiProject/startServer.js
 
 TO TEST http://192.168.59.103:3000/
+		http://192.168.59.103:3000/Thierry
 
+		
+------------------------------------------------------------------------------------------------------	
+***************on AWS FilterService for Runscope **************
+	
+FROM http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html#install_docker	
+AND https://docs.docker.com/examples/nodejs_web_app/	
+
+//THE FILE SHOULD BE Dockerfile WITH NO EXTENSION
+//Put the Dockerfile with the code
+//The project needs to be built and the node modules checked in
+
+		
+LINUX instance
+	sudo yum update -y
+	sudo yum install -y docker
+	sudo service docker start
+	sudo usermod -a -G docker ec2-user
+	//logout then login
+	logout
+	//Check if this run
+	docker info
+	sudo yum install -y git
+	git clone https://github.com/ThierryN1/filterService
+	cd filterService
+	//OPTIONAL check
+	cat Dockerfile
+	//Build
+	docker build -t thierryn1/filterservice . //NO UPERCASE
+	//OPTIONAL check
+	docker images
+	//RUN
+	docker run -p 80:80 thierryn1/filterservice
+	
+//CHECK	
+ec2-54-219-141-129.us-west-1.compute.amazonaws.com/filters/1
+
+	
 ***********node old ********************************
 sh /f/_Workspace/Boot2Docker/start.sh
 docker pull ubuntu
