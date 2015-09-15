@@ -86,6 +86,11 @@ LINUX instance
 //CHECK	
 ec2-54-219-141-129.us-west-1.compute.amazonaws.com/filters/1
 
+
+OR use the AMI
+tjnDocker
+AND resume from
+git clone https://github.com/ThierryN1/filterService
 	
 ***********node old ********************************
 sh /f/_Workspace/Boot2Docker/start.sh
