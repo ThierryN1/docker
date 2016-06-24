@@ -5,8 +5,10 @@ RUN apt-get update
 RUN apt-get install -y curl
 RUN apt-get -y install git
 # Pharo
-RUN curl get.pharo.org/40+vm | bash
+RUN curl -L get.pharo.org/40+vm | bash
 RUN echo "Pharo installed"
 # Seaside
 ADD ./install-seaside.st /home/install-seaside.st
 RUN ./pharo Pharo.image ./install-seaside.st
+#REST
+
