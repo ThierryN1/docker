@@ -1,5 +1,6 @@
 FROM ubuntu:14.04
 MAINTAINER Thierry Neel <Thierry.Neel@verifone.com>
+RUN apt-get update
 # Curl
 RUN apt-get install -y curl
 # Pharo
