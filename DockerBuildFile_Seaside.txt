@@ -1,0 +1,16 @@
+FROM base/archlinux 
+MAINTAINER Thierry Neel <Thierry.Neel@verifone.com>
+# Curl
+RUN apt-get install -y curl
+# Pharo
+RUN echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" > /tmp/multilib
+RUN cat /etc/pacman.conf /tmp/multilib > /tmp/pacman.conf
+RUN mv /tmp/pacman.conf /etc/pacman.conf
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm curl unzip lib32-zlib lib32-ncurses lib32-bzip2
+WORKDIR /home
+RUN curl get.pharo.org/40+vm | bash
+RUN echo "Pharo installed"
+# Seaside
+ADD ./install-seaside.st /home/install-seaside.st
+RUN ./pharo Pharo.image ./install-seaside.st
