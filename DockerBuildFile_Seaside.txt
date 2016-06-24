@@ -4,6 +4,12 @@ RUN apt-get update
 # Curl + Git
 RUN apt-get install -y curl
 RUN apt-get -y install git
+#zip stuff
+RUN echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" > /tmp/multilib
+RUN cat /etc/pacman.conf /tmp/multilib > /tmp/pacman.conf
+RUN mv /tmp/pacman.conf /etc/pacman.conf
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm curl unzip lib32-zlib lib32-ncurses lib32-bzip2
 # Pharo
 WORKDIR /home
 RUN curl get.pharo.org/stable+vm | bash
