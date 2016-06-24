@@ -1,4 +1,4 @@
-FROM base/archlinux 
+FROM ubuntu:14.04
 MAINTAINER Thierry Neel <Thierry.Neel@verifone.com>
 # Curl
 RUN apt-get install -y curl
